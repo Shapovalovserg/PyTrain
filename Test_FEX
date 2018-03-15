@@ -1,0 +1,113 @@
+#1. Тебе необходимо написать функцию, которая перевернет массив неопределенной длины. Условие - нельзя использовать встроенный метод length.
+
+#Функция 1
+#Вариант 1 - Использование цикла
+def reverse_array_function(array):
+    reversed_array = []
+    for value in reversed(array):
+        reversed_array.append(value)
+    return reversed_array
+
+a = input()            
+a = a.split()          
+print (reverse_array_function(a))
+
+#Вариант 2 - Использование reverse
+def reverse_array(array):
+    array.reverse()
+    return array
+
+a = input()            
+a = a.split()          
+print(reverse_array(a))
+
+#Вариант 3 - Использование среза
+#def reverse_array(array):
+#    return array[::-1]
+#
+#a = input()            
+#a = a.split()          
+#print(reverse_array(a))
+
+#2. Реализовать функцию которая отфильтрует все буквы в строке, которые встречаются более одного раза (> 1). Пример:
+#=> "agcdcgia"
+#"agc"
+
+#Функция 2
+def filter_duplication(string_duplicate):
+    string_unique = ''
+    for char in string_duplicate:
+        count = string_duplicate.count(char)
+        if count > 1 and string_unique.find(char) == -1:
+            string_unique += char
+    return string_unique
+
+string_duplicate = "agcdcgia"
+print (filter_duplication(string_duplicate))
+
+#3. Необходимо написать функцию, которая заменит значение объекта в массиве, по переданному id. Условие - все данные должны быть immutable.
+#Входящие данные:
+#    array = [
+#        {'id': 1, 'state': True},
+#        {'id': 2, 'state': True},
+#        {'id': 8, 'state': False}
+#   ]
+
+#Пример:
+#=> update(2, False)
+#[{'id': 1, 'state': True}, {'id': 2, 'state': False}, {'id': 8, 'state': False}]
+#
+#=> update(8, True)
+#[{'id': 1, 'state': True}, {'id': 2, 'state': True}, {'id': 8, 'state': True}]
+#
+#=> update(7, True) # Ничего не произойдет.
+#[{'id': 1, 'state': True}, {'id': 2, 'state': True}, {'id': 8, 'state': False}]
+
+#Функция 3
+array = [
+        {'id': 1, 'state': True},
+        {'id': 2, 'state': True},
+        {'id': 8, 'state': False}
+   ]
+def update(id, state):
+    tuppled_array = []
+    for d in array:
+        c = (d['id'], d['state'])
+        tuppled_array.append(c)
+    for i, item in enumerate(tuppled_array):
+        if item [0] == id:
+            tuppled_array[i] = (id, state)
+    print (tuppled_array)
+    return tuppled_array
+
+update(2, False)
+update(8, True)
+update(7, True)
+
+#4. Необходимо нормализовать строку убрав все дополнительные символы возле слов.
+#Пример:
+#=> normalize("X > %Y")
+#    "X > Y"
+#
+#=> normalize("  X >      Y    >")
+#    "X > Y"
+#
+#=> normalize("\"X\" >'Y'> I  \t> 1Z2")
+#    "X > Y > I > 1Z2"
+
+#Дополнительные символы:
+#    !"$%&\'*+,-./:;<=?[\\]^`{|}~\t\n\x0b\x0c\r
+
+#Функция 4
+import string
+import re
+
+def normalize (unnormalized_text):
+    allow = string.ascii_letters + string.digits + '>' + ' '
+    allowed_text = (re.sub('[^%s]' % allow, ' ', unnormalized_text))
+    normalized_text = (' '.join(allowed_text.split())).strip('> ')
+    print(normalized_text)
+
+normalize("X > %Y")   
+normalize("  X >      Y    >")
+normalize("\"X\" >'Y'> I  \t> 1Z2")
